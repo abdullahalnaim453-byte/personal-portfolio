@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naim - Interactive Portfolio Hub</title>
+  
+  <!-- FontAwesome Icons & Boxicons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  
+  <style>
+    :root {
+      --bg-primary: #f8f9fa;
+      --bg-card: #ffffff;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --primary-red: #e50914;
+      --primary-red-hover: #cc0812;
+      --border-color: #e5e7eb;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 6px 16px -2px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+    }
+
+    .logo {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      letter-spacing: 1px;
+      position: relative;
+      padding-bottom: 2px;
+      
+    }
+
+
+    .logo span {
+      color: var(--primary-red);
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-red);
+      transition: width 0.3s ease-in-out;
+    }
+
+    .logo:hover::after {
+      width: 100%;
+      color: yellow;
+    }
+
+    .navbar {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      padding: 0.25rem 0;
+      cursor: pointer;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--primary-red);
+      transition: width 0.3s ease-in-out;
+    }
+
+    .navbar a:hover::after,
+    .navbar a.active::after {
+      width: 100%;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      color: var(--primary-red);
+    }
+
+    .contact {
+      background-color: transparent;
+      border: 2px solid var(--text-main);
+      color: var(--text-main);
+      padding: 0.6rem 1.4rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: var(--text-main);
+      z-index: -1;
+      transition: height 0.3s ease;
+    }
+
+    .contact:hover {
+      color: #ffffff;
+      border-color: var(--text-main);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .contact:hover::before {
+      height: 100%;
+    }
+
+    .HOME {
+      padding: 3rem 8% 2rem 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+      min-height: 55vh;
+    }
+
+    .HOME-CONTENT {
+      max-width: 580px;
+    }
+
+    .HOME-CONTENT h3 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .HOME-CONTENT h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0.5rem 0 1.2rem 0;
+      color: var(--text-main);
+    }
+
+    .HOME-CONTENT h1 span {
+      color: var(--primary-red);
+    }
+
+    .HOME-CONTENT p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .btn-box {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .btn-1 {
+      background-color: #fce7f3;
+      color: #9d174d;
+      border: 1px solid #fbcfe8;
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-1:hover {
+      background-color: #fbcfe8;
+    }
+
+    .btn-2 {
+      background-color: var(--primary-red);
+      color: #ffffff;
+      border: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 14px rgba(229, 9, 20, 0.35);
+    }
+
+    .btn-2:hover {
+      background-color: var(--primary-red-hover);
+      transform: translateY(-2px);
+    }
+
+    .hero-image-container {
+      position: relative;
+      width: 380px;
+      height: 380px;
+      flex-shrink: 0;
+    }
+
+    .hero-image-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 6px solid #ffffff;
+      box-shadow: var(--shadow-lg);
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-upload-overlay {
+      position: absolute;
+      bottom: 20px;
+      right: 25px;
+      background: var(--primary-red);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      z-index: 10;
+    }
+
+    .img-upload-overlay:hover {
+      transform: scale(1.1);
+    }
+
+    .portfolio-sub-section, .service-sub-section, .experience-sub-section, .projects-sub-section {
+      display: none;
+      padding: 1rem 8% 4rem 8%;
+      animation: expandDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portfolio-sub-section.open, .service-sub-section.open, .experience-sub-section.open, .projects-sub-section.open {
+      display: block;
+    }
+
+    @keyframes expandDown {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sub-navbar-container {
+      background: var(--bg-card);
+      border: 2px solid var(--primary-red);
+      border-radius: var(--radius-md);
+      padding: 0.6rem;
+      display: flex;
+      justify-content: space-around;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+      overflow-x: auto;
+    }
+
+    .sub-nav-btn {
+      flex: 1;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+    }
+
+    .sub-nav-btn:hover {
+      background: #f3f4f6;
+      color: var(--text-main);
+    }
+
+    .sub-nav-btn.active {
+      background: var(--primary-red);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.25);
+    }
+
+    .sub-tab-content {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .sub-tab-content.active {
+      display: block;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: #f9fafb;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .info-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary-red);
+    }
+
+    .badge-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tech-badge {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .timeline-container {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 3px solid var(--primary-red);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      background: #f9fafb;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.6rem;
+      top: 1.5rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary-red);
+      border: 4px solid #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-date {
+      display: inline-block;
+      background: #fee2e2;
+      color: var(--primary-red);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.6rem;
+    }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #ffffff;
+      padding: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-header i {
+      font-size: 1.8rem;
+      color: #f43f5e;
+    }
+
+    .project-body {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mini-app-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .mini-input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 0.6rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .mini-input:focus {
+      border-color: var(--primary-red);
+    }
+
+    .mini-btn {
+      width: 100%;
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .mini-btn:hover {
+      background: var(--primary-red-hover);
+    }
+
+    .code-editor-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      height: 380px;
+    }
+
+    .editor-pane, .output-pane {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-header {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 0.6rem 1rem;
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    textarea.code-input {
+      flex: 1;
+      background: #181825;
+      color: #a6adc8;
+      border: none;
+      padding: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      resize: none;
+      outline: none;
+      border-bottom-left-radius: var(--radius-sm);
+      border-bottom-right-radius: var(--radius-sm);
+    }
+
+    .output-frame {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-bottom-left-radius: var(--radius-sm);
+      border-bottom-right-radius: var(--radius-sm);
+      width: 100%;
+      height: 100%;
+    }
+
+    .physics-canvas-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    canvas#physicsCanvas {
+      background: #111827;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      max-width: 100%;
+    }
+
+    .quiz-card {
+      background: #f9fafb;
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .quiz-btn {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      border-radius: var(--radius-sm);
+      text-align: left;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .quiz-btn:hover {
+      background: #f3f4f6;
+    }
+
+    .terminal-container {
+      background: #0d1117;
+      color: #58a6ff;
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      font-family: monospace;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-output {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .terminal-input-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .terminal-input-row input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f0f6fc;
+      font-family: monospace;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .HOME {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-top: 2rem;
+      }
+      .HOME-CONTENT {
+        max-width: 100%;
+      }
+      .btn-box {
+        justify-content: center;
+      }
+      .code-editor-container {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      .editor-pane, .output-pane {
+        height: 250px;
+      }
+      .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        justify-content: center;
+      }
+      .hero-image-container {
+        width: 280px;
+        height: 280px;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="#" class="logo"><span>NA</span>IM</a>
+
+    <nav class="navbar">
+      <a href="#portfolio" id="nav-portfolio-link" onclick="window.togglePortfolioMenu(event)">PORTFOLIO</a>
+      <a href="#service" id="nav-service-link" onclick="window.toggleServiceMenu(event)">SERVICE</a>
+      <a href="#experience" id="nav-experience-link" onclick="window.toggleExperienceMenu(event)">EXPERIENCE</a>
+      <a href="#projects" id="nav-projects-link" onclick="window.toggleProjectsMenu(event)">PROJECTS</a>
+      <a href="#education" onclick="window.handleTopNavClick('EDUCATION', event)">EDUCATION</a>
+    </nav>
+
+    <a href="contactme.html" class="contact">CONTACT WITH ME</a>
+  </header>
+
+  <section class="HOME" id="home">
+    <div class="HOME-CONTENT">
+      <h3>Hi</h3>
+      <h1>I'm <span>Naim</span>,<br>A Frontend Developer</h1>
+      <p>
+        I am a passionate Web Designer dedicated to crafting modern, dynamic, and user-friendly web experiences. Coding since 2022, I specialize in building custom web applications, STEM widgets, title designs, and institutional tools with clean code.
+      </p>
+
+      <div class="btn-box">
+        <a href="hireme.html" class="btn-1">Hire Me</a>
+        <button class="btn-2" onclick="window.toggleExperienceMenu(event)">My Journey (2022+)</button>
+      </div>
+    </div>
+
+    <div class="hero-image-container">
+      <div class="hero-image-frame">
+        <img id="profileImage" src="825266685_2283351152515319_4637223067698616491_n.jpg" alt="Naim Profile">
+      </div>
+      <label for="imageUploadInput" class="img-upload-overlay" title="Click to Upload Custom Photo">
+        <i class="fa-solid fa-camera"></i>
+      </label>
+      <input type="file" id="imageUploadInput" accept="image/*" style="display:none;" onchange="window.updateProfilePic(event)">
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SUB-SECTION -->
+  <section class="portfolio-sub-section" id="portfolioSubSection">
+    <div class="sub-navbar-container">
+      <button class="sub-nav-btn active" id="btn-overview" onclick="window.switchSubTab('overview')">
+        <i class="fa-solid fa-layer-group"></i> 🌟 Overview
+      </button>
+      <button class="sub-nav-btn" id="btn-sandbox" onclick="window.switchSubTab('sandbox')">
+        <i class="fa-solid fa-code"></i> 💻 Code Sandbox
+      </button>
+      <button class="sub-nav-btn" id="btn-physics" onclick="window.switchSubTab('physics')">
+        <i class="fa-solid fa-atom"></i> 🎮 Physics Lab
+      </button>
+      <button class="sub-nav-btn" id="btn-quiz" onclick="window.switchSubTab('quiz')">
+        <i class="fa-solid fa-brain"></i> 🧠 Quiz Hub
+      </button>
+      <button class="sub-nav-btn" id="btn-cli" onclick="window.switchSubTab('cli')">
+        <i class="fa-solid fa-terminal"></i> 📟 CLI Console
+      </button>
+    </div>
+
+    <!-- Overview Tab -->
+    <div class="sub-tab-content active" id="tab-overview">
+      <div class="overview-grid">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-code"></i> Tech Stack</h3>
+          <div class="badge-wrap">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">CSS3</span>
+            <span class="tech-badge">JavaScript ES6+</span>
+            <span class="tech-badge">DOM API</span>
+            <span class="tech-badge">Canvas 2D</span>
+            <span class="tech-badge">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <h3><i class="fa-solid fa-bullseye"></i> Current Focus</h3>
+          <p style="color: var(--text-muted);">Building web applications, interactive STEM tools, and custom responsive web interfaces with clean architecture.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Sandbox Tab -->
+    <div class="sub-tab-content" id="tab-sandbox">
+      <h2 style="margin-bottom: 1rem; font-size: 1.2rem;">Live HTML/CSS Code Editor</h2>
+      <div class="code-editor-container">
+        <div class="editor-pane">
+          <div class="editor-header">
+            <span>index.html</span>
+            <button onclick="window.runCodeSandbox()" style="background:var(--primary-red); color:white; border:none; padding:4px 12px; border-radius:4px; cursor:pointer;">Run Code</button>
+          </div>
+          <textarea class="code-input" id="sandboxCode"><h1 style="color: #e50914; font-family: sans-serif;">Hello, World!</h1>
+<p style="color: #444;">This is live preview inside Naim's Portfolio.</p>
+<button onclick="alert('Interactive JavaScript Works!')" style="padding:8px 16px; background:#111; color:#fff; border:none; border-radius:4px; cursor:pointer;">Click Me</button></textarea>
+        </div>
+        <div class="output-pane">
+          <div class="editor-header" style="background:#313244;">Output Preview</div>
+          <iframe id="sandboxOutput" class="output-frame"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Physics Lab Tab -->
+    <div class="sub-tab-content" id="tab-physics">
+      <div class="physics-canvas-wrap">
+        <h2 style="font-size: 1.2rem;">Interactive Pendulum Physics Simulation</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Real-time Canvas calculation model</p>
+        <canvas id="physicsCanvas" width="500" height="260"></canvas>
+      </div>
+    </div>
+
+    <!-- Quiz Hub Tab -->
+    <div class="sub-tab-content" id="tab-quiz">
+      <div class="quiz-card">
+        <h3 id="quizQuestion">Question loading...</h3>
+        <div class="quiz-options" id="quizOptions"></div>
+        <p id="quizScore" style="margin-top: 1rem; font-weight:700; color: var(--primary-red);"></p>
+      </div>
+    </div>
+
+    <!-- CLI Console Tab -->
+    <div class="sub-tab-content" id="tab-cli">
+      <div class="terminal-container">
+        <div class="terminal-output" id="terminalLog">
+          Welcome to Naim CLI v1.0.0<br>
+          Type <span style="color:#f59e0b;">help</span> to view all available commands.<br><br>
+        </div>
+        <div class="terminal-input-row">
+          <span>naim@portfolio:~$</span>
+          <input type="text" id="cliInput" placeholder="Type a command...">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE SUB-SECTION -->
+  <section class="service-sub-section" id="serviceSubSection">
+    <div class="sub-navbar-container">
+      <button class="service-nav-btn sub-nav-btn active" id="btn-servweb" onclick="window.switchServiceTab('servweb')">
+        <i class="fa-solid fa-code"></i> 🌐 Web Design & Frontend
+      </button>
+      <button class="service-nav-btn sub-nav-btn" id="btn-servui" onclick="window.switchServiceTab('servui')">
+        <i class="fa-solid fa-palette"></i> 🎨 UI/UX & Layout Design
+      </button>
+      <button class="service-nav-btn sub-nav-btn" id="btn-servapps" onclick="window.switchServiceTab('servapps')">
+        <i class="fa-solid fa-laptop-code"></i> 🚀 Interactive Web Apps
+      </button>
+      <button class="service-nav-btn sub-nav-btn" id="btn-servadd" onclick="window.switchServiceTab('servadd')">
+        <i class="fa-solid fa-circle-plus"></i> ➕ Add Custom Service
+      </button>
+    </div>
+
+    <div class="service-tab-content sub-tab-content active" id="tab-servweb">
+      <h3>Professional Web Design & Frontend Development</h3>
+      <p style="color:var(--text-muted); margin-top:0.5rem; margin-bottom:1.5rem;">
+        Responsive layout creation, institutional portals, modern interactive widgets, and clean frontend web development.
+      </p>
+
+      <div class="overview-grid" id="dynamicServiceGrid">
+        <div class="info-card" style="background:#fff; border-top: 4px solid var(--primary-red);">
+          <h3><i class="fa-solid fa-laptop-code"></i> Frontend Web Architecture</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;">High-performance, dynamic web applications built using HTML5, CSS3, ES6+, and modern responsive frameworks with mobile optimization.</p>
+        </div>
+
+        <div class="info-card" style="background:#fff; border-top: 4px solid var(--primary-red);">
+          <h3><i class="fa-solid fa-microchip"></i> STEM & Physics Interactive Tools</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Educational Canvas 2D physics simulations, math calculators, and real-time interactive widgets for institutional sites.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-tab-content sub-tab-content" id="tab-servui">
+      <h3>UI/UX & Title Design Studio</h3>
+      <p style="color:var(--text-muted); margin-top:0.5rem; margin-bottom:1.5rem;">Unique title designs, typography card generators, color gradient systems, and modern user interaction flows.</p>
+
+      <div class="overview-grid">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-pen-nib"></i> Responsive Dashboard & UI Styling</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Clean, user-centric visual styling with customizable components, dark/light theme support, and CSS animations.</p>
+        </div>
+        <div class="info-card">
+          <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Custom Title & Typography Cards</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Interactive title generation with customizable font effects, glow styles, and gradient shadows.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-tab-content sub-tab-content" id="tab-servapps">
+      <h3>Custom Interactive Web Apps</h3>
+      <p style="color:var(--text-muted); margin-top:0.5rem; margin-bottom:1.5rem;">Full-scale web applications including CGPA calculation suites, live weather forecast tools, and real-time widgets.</p>
+
+      <div class="overview-grid">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-calculator"></i> CGPA & Academic Grade Tools</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Automated grade point average calculators tailored for university and college mark structures.</p>
+        </div>
+        <div class="info-card">
+          <h3><i class="fa-solid fa-cloud-sun"></i> Live Weather & API Tools</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Interactive weather search widgets with real-time API integrations, forecasts, and status indicators.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Add Custom Service -->
+    <div class="service-tab-content sub-tab-content" id="tab-servadd">
+      <h2 style="font-size:1.3rem; margin-bottom:1rem; color:var(--text-main);">➕ Add Custom Service & Live Preview</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">Fill in the service details below to instantly add it to your service list!</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+        <!-- Input Form -->
+        <div style="background:#f9fafb; padding:1.5rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.1rem; margin-bottom:1rem; color:var(--primary-red);"><i class="fa-solid fa-pen-to-square"></i> Service Details</h3>
+
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Service Title:</label>
+          <input type="text" id="inputServTitle" class="mini-input" placeholder="e.g. Custom Title Design Studio" oninput="window.updateServicePreview()">
+
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Service Description:</label>
+          <textarea id="inputServDesc" class="mini-input" style="height:80px; resize:vertical;" placeholder="Describe what this service covers..." oninput="window.updateServicePreview()"></textarea>
+
+          <button class="mini-btn" style="margin-top:0.5rem;" onclick="window.saveCustomService()"><i class="fa-solid fa-check"></i> Add Service</button>
+        </div>
+
+        <!-- Live Preview Pane -->
+        <div style="background:#f9fafb; padding:1.5rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.1rem; margin-bottom:1rem; color:#047857;"><i class="fa-solid fa-eye"></i> Live Card Preview</h3>
+          <div id="serviceLivePreviewContainer" style="margin-top:0.5rem;">
+            <div class="info-card" style="background:#fff; border-top: 4px solid var(--primary-red);">
+              <h3 id="previewServTitleDisplay"><i class="fa-solid fa-screwdriver-wrench"></i> Custom Service Title</h3>
+              <p id="previewServDescDisplay" style="color:var(--text-muted); font-size:0.9rem;">Your custom service description will appear here as you type.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE SUB-SECTION -->
+  <section class="experience-sub-section" id="experienceSubSection">
+    <div class="sub-navbar-container">
+      <button class="exp-nav-btn sub-nav-btn active" id="btn-exptimeline" onclick="window.switchExpTab('exptimeline')">
+        <i class="fa-solid fa-timeline"></i> 🔀 Timeline (2022-Present)
+      </button>
+      <button class="exp-nav-btn sub-nav-btn" id="btn-expcalculators" onclick="window.switchExpTab('expcalculators')">
+        <i class="fa-solid fa-calculator"></i> 🧮 Calculators Hub
+      </button>
+      <button class="exp-nav-btn sub-nav-btn" id="btn-expweather" onclick="window.switchExpTab('expweather')">
+        <i class="fa-solid fa-cloud-sun"></i> ⛅ World Forecast & Apps
+      </button>
+      <button class="exp-nav-btn sub-nav-btn" id="btn-exptitle" onclick="window.switchExpTab('exptitle')">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> 🪄 Title Design Studio
+      </button>
+      <button class="exp-nav-btn sub-nav-btn" id="btn-expadd" onclick="window.switchExpTab('expadd')">
+        <i class="fa-solid fa-circle-plus"></i> ➕ Add Journey / Milestone
+      </button>
+    </div>
+
+    <!-- Timeline Tab -->
+    <div class="exp-tab-content sub-tab-content active" id="tab-exptimeline">
+      <div class="timeline-container" id="dynamicExpTimeline">
+        
+        <!-- 2022 Milestone -->
+        <div class="timeline-item">
+          <span class="timeline-date">2022 - Coding Journey Begins</span>
+          <h3><i class="fa-solid fa-rocket" style="color: var(--primary-red); margin-right: 0.4rem;"></i> Fundamentals & First Web Tools</h3>
+          <p style="color:var(--text-muted);">
+            Started journey with HTML5, CSS3, and JavaScript ES6. Built foundational tools including custom UI title cards, interactive button components, and basic DOM manipulation tools.
+          </p>
+        </div>
+
+        <!-- 2023 Milestone -->
+        <div class="timeline-item">
+          <span class="timeline-date">2023 - Web Applications Expansion</span>
+          <h3><i class="fa-solid fa-code" style="color: var(--primary-red); margin-right: 0.4rem;"></i> Specialized Web Apps & Widgets</h3>
+          <p style="color:var(--text-muted);">
+            Developed full-scale interactive web apps: CGPA Calculators for students, Love Match algorithm widgets, and responsive layout designs for various online clients.
+          </p>
+        </div>
+
+        <!-- 2024+ Milestone -->
+        <div class="timeline-item">
+          <span class="timeline-date">2024 - Present - Full Stack Design & Integration</span>
+          <h3><i class="fa-solid fa-shield-halved" style="color: var(--primary-red); margin-right: 0.4rem;"></i> Institutional Deployment & Modern Frontend</h3>
+          <p style="color:var(--text-muted);">
+            Engineering custom institutional web components, weather forecast tools with API simulation, advanced CSS graphics, and code audit services.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Calculators Hub Tab -->
+    <div class="exp-tab-content sub-tab-content" id="tab-expcalculators">
+      <h3>Calculators Hub & Educational Tools</h3>
+      <p style="color:var(--text-muted); margin-bottom:1.5rem;">Automated grade and GPA calculation utilities built for college and university students.</p>
+
+      <div class="overview-grid">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-graduation-cap"></i> CGPA & Grade Point Evaluator</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">Enter student total marks or percentage to calculate letter grade and corresponding GPA score.</p>
+          <div class="mini-app-box">
+            <input type="number" id="quickGpaMarks" class="mini-input" placeholder="Enter GPA / Marks (0-100)">
+            <button class="mini-btn" onclick="window.calcQuickGpa()">Quick Evaluate</button>
+            <p id="quickGpaResult" style="margin-top:0.5rem; font-weight:700; color:var(--primary-red); font-size:0.85rem;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- World Forecast & Apps Tab -->
+    <div class="exp-tab-content sub-tab-content" id="tab-expweather">
+      <h3>⛅ World Weather Forecast & Interactive App</h3>
+      <p style="color:var(--text-muted); margin-bottom:1.5rem;">Real-time weather query tool built with interactive dynamic background and status alerts.</p>
+
+      <div class="info-card" style="max-width: 500px; background: #f8fafc;">
+        <h3><i class="fa-solid fa-cloud-sun-rain"></i> Live Weather Lookup Widget</h3>
+        <div class="mini-app-box">
+          <input type="text" id="weatherCityInput" class="mini-input" placeholder="Enter City (e.g., Dhaka, London, Tokyo)">
+          <button class="mini-btn" style="background:#2563eb;" onclick="window.searchWeatherApp()">Get Forecast</button>
+          <div id="weatherAppOutput" style="margin-top: 1rem; font-size:0.9rem; color:#1e293b;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Title Design Studio Tab -->
+    <div class="exp-tab-content sub-tab-content" id="tab-exptitle">
+      <h3>🪄 Title Design Studio</h3>
+      <p style="color:var(--text-muted); margin-bottom:1.5rem;">Generate stylish custom headers, glowing title text, and stylized typography cards instantly.</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
+        <div class="info-card">
+          <h3><i class="fa-solid fa-pen-fancy"></i> Custom Title Studio Settings</h3>
+          <label style="font-size:0.85rem; font-weight:700;">Title Text:</label>
+          <input type="text" id="titleStudioText" class="mini-input" value="CREATIVE FRONTEND DEVELOPER" oninput="window.renderStudioTitle()">
+          
+          <label style="font-size:0.85rem; font-weight:700; margin-top:0.5rem;">Style Variant:</label>
+          <select id="titleStudioStyle" class="mini-input" onchange="window.renderStudioTitle()">
+            <option value="red-glow">Red Glow Accent</option>
+            <option value="gradient">Gradient Rainbow</option>
+            <option value="cyber">Cyberpunk Dark</option>
+          </select>
+        </div>
+
+        <div style="background:#0f172a; padding:2rem; border-radius:var(--radius-md); text-align:center; min-height:160px; display:flex; align-items:center; justify-content:center;">
+          <h2 id="studioTitleDisplay" style="color:#ffffff; font-size:1.5rem; font-weight:800; text-shadow: 0 0 10px rgba(229, 9, 20, 0.8);">
+            CREATIVE FRONTEND DEVELOPER
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Add Custom Experience Milestone -->
+    <div class="exp-tab-content sub-tab-content" id="tab-expadd">
+      <h2 style="font-size:1.3rem; margin-bottom:1rem; color:var(--text-main);">➕ Add Custom Milestone / Experience</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">Add a new milestone or work experience to your journey timeline!</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+        <!-- Input Form -->
+        <div style="background:#f9fafb; padding:1.5rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.1rem; margin-bottom:1rem; color:var(--primary-red);"><i class="fa-solid fa-pen-to-square"></i> Experience Details</h3>
+
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Year / Duration:</label>
+          <input type="text" id="inputExpYear" class="mini-input" placeholder="e.g. 2024 - Present" oninput="window.updateExpPreview()">
+
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Role / Milestone Title:</label>
+          <input type="text" id="inputExpTitle" class="mini-input" placeholder="e.g. Senior Frontend Developer" oninput="window.updateExpPreview()">
+
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Description / Achievements:</label>
+          <textarea id="inputExpDesc" class="mini-input" style="height:80px; resize:vertical;" placeholder="Describe what you worked on or achieved..." oninput="window.updateExpPreview()"></textarea>
+
+          <button class="mini-btn" style="margin-top:0.5rem;" onclick="window.saveCustomExperience()"><i class="fa-solid fa-check"></i> Add to Timeline</button>
+        </div>
+
+        <!-- Live Preview Pane -->
+        <div style="background:#f9fafb; padding:1.5rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.1rem; margin-bottom:1rem; color:#047857;"><i class="fa-solid fa-eye"></i> Live Timeline Preview</h3>
+          <div id="expLivePreviewContainer" style="margin-top:0.5rem;">
+            <div class="timeline-item" style="border:1px solid var(--border-color); background:#fff;">
+              <span class="timeline-date" id="previewExpYearDisplay">2024 - Present</span>
+              <h3 id="previewExpTitleDisplay">Custom Milestone Title</h3>
+              <p id="previewExpDescDisplay" style="color:var(--text-muted);">Your experience summary will show up here live.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SUB-SECTION WITH CUSTOM NAVBAR & PROJECT INPUT WITH PREVIEW -->
+  <section class="projects-sub-section" id="projectsSubSection">
+    <div class="sub-navbar-container">
+      <button class="proj-nav-btn sub-nav-btn active" id="btn-proj-all" onclick="window.switchProjTab('all')">
+        <i class="fa-solid fa-border-all"></i> 📁 All Projects
+      </button>
+      <button class="proj-nav-btn sub-nav-btn" id="btn-proj-web" onclick="window.switchProjTab('web')">
+        <i class="fa-solid fa-laptop-code"></i> 🌐 Web Designs
+      </button>
+      <button class="proj-nav-btn sub-nav-btn" id="btn-proj-cgpa" onclick="window.switchProjTab('cgpa')">
+        <i class="fa-solid fa-calculator"></i> 🎓 CGPA Tools
+      </button>
+      <button class="proj-nav-btn sub-nav-btn" id="btn-proj-weather" onclick="window.switchProjTab('weather')">
+        <i class="fa-solid fa-cloud-sun"></i> ⛅ Forecast Tools
+      </button>
+      <button class="proj-nav-btn sub-nav-btn" id="btn-proj-add" onclick="window.switchProjTab('add')">
+        <i class="fa-solid fa-circle-plus"></i> ➕ Add My Project
+      </button>
+    </div>
+
+    <!-- Tab 1: All Projects Showcase -->
+    <div class="proj-tab-content sub-tab-content active" id="tab-proj-all">
+      <h2 style="font-size:1.3rem; margin-bottom:1.2rem; color:var(--text-main);">🚀 Featured Projects Showcase</h2>
+      <div class="exp-grid" id="dynamicProjectGrid">
+        
+        <!-- Default Project 1: Institutional Portal -->
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, #0f172a, #1e293b);">
+            <div>
+              <h3>Institutional School Portal</h3>
+              <small style="color:#cbd5e1;">Educational Web System</small>
+            </div>
+            <i class="fa-solid fa-school"></i>
+          </div>
+          <div class="project-body">
+            <p style="font-size:0.9rem; color:var(--text-muted);">
+              আধুনিক স্কুল ও কলেজের জন্য রেসপন্সিভ ওয়েবসাইট টেমপ্লেট যেখানে নোটিশ বোর্ড, অনলাইন অ্যাডমিশন ও রেজাল্ট ভিউয়ার সংযুক্ত রয়েছে।
+            </p>
+            <div class="mini-app-box">
+              <label style="font-size:0.8rem; font-weight:700; color:#334155;">Search Student Roll Portal:</label>
+              <input type="text" id="eduRollInput" class="mini-input" placeholder="Enter Roll No (e.g. 101)">
+              <button class="mini-btn" onclick="window.searchPortalRoll()">Search Result</button>
+              <p id="portalResult" style="margin-top:0.5rem; font-weight:700; color:var(--primary-red); font-size:0.85rem;"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Default Project 2: Advanced CGPA Engine -->
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, #065f46, #047857);">
+            <div>
+              <h3>Advanced CGPA Calculator</h3>
+              <small style="color:#a7f3d0;">Student Grade System</small>
+            </div>
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="project-body">
+            <p style="font-size:0.9rem; color:var(--text-muted);">
+              বিশ্ববিদ্যালয় ও কলেজ শিক্ষার্থীদের গ্রেড পয়েন্ট ও জিপিএ সহজেই হিসাব করার জন্য নির্মিত অ্যাডভান্সড ক্যালকুলেটর।
+            </p>
+            <div class="mini-app-box">
+              <input type="number" id="cgpaMarks" class="mini-input" placeholder="Enter Total Percentage Marks">
+              <button class="mini-btn" style="background:#059669;" onclick="window.calcProjCGPA()">Calculate CGPA</button>
+              <p id="projCgpaOutput" style="margin-top:0.5rem; font-weight:700; color:#047857; font-size:0.85rem;"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Default Project 3: Title Design Studio App -->
+        <div class="project-card">
+          <div class="project-header" style="background: linear-gradient(135deg, #4338ca, #6366f1);">
+            <div>
+              <h3>Title Design Studio</h3>
+              <small style="color:#e0e7ff;">UI/UX Graphic Generator</small>
+            </div>
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div class="project-body">
+            <p style="font-size:0.9rem; color:var(--text-muted);">
+              ওয়েবসাইট ও প্রেজেন্টেশনের জন্য গ্লোয়িং টাইটেল, কার্ড ইফেক্ট এবং কাস্টম ট্রানজিশন হেডার বানানোর অনলাইন টুলস।
+            </p>
+            <div class="mini-app-box" style="text-align:center;">
+              <span class="tech-badge" style="background:#e0e7ff; color:#3730a3;">Interactive Typography App</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tab 2: Web Designs -->
+    <div class="proj-tab-content sub-tab-content" id="tab-proj-web">
+      <h2 style="font-size:1.2rem; margin-bottom:1rem; color:var(--text-main);">🌐 Web Design & UI Showcase</h2>
+      <div class="info-card" style="background:#fff; border-left:4px solid #6366f1;">
+        <h3><i class="fa-solid fa-laptop-code" style="color:#6366f1;"></i> Modern Dynamic Web Designs</h3>
+        <p style="color:var(--text-muted); margin-bottom:1rem;">
+          বিভিন্ন বিজনেস, ই-কমার্স ও পারসোনাল ব্র্যান্ডের জন্য তৈরি করা ইউনিক রেসপন্সিভ ওয়েব ইন্টারফেস।
+        </p>
+        <div class="badge-wrap">
+          <span class="tech-badge">Custom HTML5/CSS3</span>
+          <span class="tech-badge">Clean Layout</span>
+          <span class="tech-badge">Fast Loading</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: CGPA Tools -->
+    <div class="proj-tab-content sub-tab-content" id="tab-proj-cgpa">
+      <h2 style="font-size:1.2rem; margin-bottom:1rem; color:var(--text-main);">🎓 CGPA & Grade Calculators</h2>
+      <div class="info-card" style="background:#fff; border-left:4px solid #047857;">
+        <h3><i class="fa-solid fa-calculator" style="color:#047857;"></i> GPA / CGPA Automation Tools</h3>
+        <p style="color:var(--text-muted);">
+          বিভিন্ন শিক্ষা প্রতিষ্ঠানের নিজস্ব গ্রেডিং নীতি অনুযায়ী তৈরি করা অনলাইন সিজিপিএ গণনাকারী টুলস।
+        </p>
+      </div>
+    </div>
+
+    <!-- Tab 4: Weather Forecast Tools -->
+    <div class="proj-tab-content sub-tab-content" id="tab-proj-weather">
+      <h2 style="font-size:1.2rem; margin-bottom:1rem; color:var(--text-main);">⛅ World Forecast & Weather Apps</h2>
+      <div class="info-card" style="background:#fff; border-left:4px solid #2563eb;">
+        <h3><i class="fa-solid fa-cloud-sun" style="color:#2563eb;"></i> Live Weather Forecast System</h3>
+        <p style="color:var(--text-muted);">
+          ওয়েদার এপিআই এর সমন্বয়ে রিয়েল-টাইম তাপমাত্রা, আর্দ্রতা ও আবহাওয়ার পূর্বাভাস প্রদর্শনকারী ওয়েব প্রজেক্ট।
+        </p>
+      </div>
+    </div>
+
+    <!-- Tab 5: Add My Project -->
+    <div class="proj-tab-content sub-tab-content" id="tab-proj-add">
+      <h2 style="font-size:1.3rem; margin-bottom:1rem; color:var(--text-main);">➕ Add Your Custom Project & Preview</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">Fill out the details below to instantly add and preview your new project card in the portfolio!</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+        <!-- Input Form -->
+        <div style="background:#f9fafb; padding:1.5rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.1rem; margin-bottom:1rem; color:var(--primary-red);"><i class="fa-solid fa-pen-to-square"></i> Project Details</h3>
+          
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Project Title:</label>
+          <input type="text" id="inputProjTitle" class="mini-input" placeholder="e.g. E-Commerce Dashboard" oninput="window.updateProjectPreview()">
+          
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Category / Subtitle:</label>
+          <input type="text" id="inputProjCategory" class="mini-input" placeholder="e.g. React & Node App" oninput="window.updateProjectPreview()">
+          
+          <label style="font-size:0.85rem; font-weight:700; color:var(--text-main);">Project Description:</label>
+          <textarea id="inputProjDesc" class="mini-input" style="height:80px; resize:vertical;" placeholder="Write brief description in Bengali or English..." oninput="window.updateProjectPreview()"></textarea>
+          
+          <button class="mini-btn" style="margin-top:0.5rem;" onclick="window.saveCustomProject()"><i class="fa-solid fa-check"></i> Add Project to Portfolio</button>
+        </div>
+
+        <!-- Live Preview Pane -->
+        <div style="background:#f9fafb; padding:1.5rem; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.1rem; margin-bottom:1rem; color:#047857;"><i class="fa-solid fa-eye"></i> Live Card Preview</h3>
+          <div id="projectLivePreviewContainer" style="margin-top:0.5rem;">
+            <!-- Rendered Live Card -->
+            <div class="project-card">
+              <div class="project-header" style="background: linear-gradient(135deg, #4338ca, #6366f1);">
+                <div>
+                  <h3 id="previewTitleDisplay">My New Project</h3>
+                  <small id="previewCategoryDisplay" style="color:#e0e7ff;">Web Application</small>
+                </div>
+                <i class="fa-solid fa-laptop-code"></i>
+              </div>
+              <div class="project-body">
+                <p id="previewDescDisplay" style="font-size:0.9rem; color:var(--text-muted);">
+                  This is how your project description will look in the portfolio showcase grid.
+                </p>
+                <div class="mini-app-box" style="text-align:center;">
+                  <span class="tech-badge" style="background:#e0e7ff; color:#3730a3;">Live Preview Mode</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    window.togglePortfolioMenu = function(e) {
+      if (e) e.preventDefault();
+      window.closeAllSections();
+      document.getElementById('portfolioSubSection').classList.add('open');
+      document.getElementById('nav-portfolio-link').classList.add('active');
+      document.getElementById('portfolioSubSection').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.toggleServiceMenu = function(e) {
+      if (e) e.preventDefault();
+      window.closeAllSections();
+      document.getElementById('serviceSubSection').classList.add('open');
+      document.getElementById('nav-service-link').classList.add('active');
+      document.getElementById('serviceSubSection').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.toggleExperienceMenu = function(e) {
+      if (e) e.preventDefault();
+      window.closeAllSections();
+      document.getElementById('experienceSubSection').classList.add('open');
+      document.getElementById('nav-experience-link').classList.add('active');
+      document.getElementById('experienceSubSection').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.toggleProjectsMenu = function(e) {
+      if (e) e.preventDefault();
+      window.closeAllSections();
+      document.getElementById('projectsSubSection').classList.add('open');
+      document.getElementById('nav-projects-link').classList.add('active');
+      document.getElementById('projectsSubSection').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.closeAllSections = function() {
+      document.getElementById('portfolioSubSection').classList.remove('open');
+      document.getElementById('serviceSubSection').classList.remove('open');
+      document.getElementById('experienceSubSection').classList.remove('open');
+      document.getElementById('projectsSubSection').classList.remove('open');
+      document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
+    };
+
+    window.handleTopNavClick = function(navName, e) {
+      if (e) e.preventDefault();
+      window.closeAllSections();
+      if (e && e.target) e.target.classList.add('active');
+    };
+
+    window.switchSubTab = function(tabName) {
+      document.querySelectorAll('#portfolioSubSection .sub-nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#portfolioSubSection .sub-tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(`btn-${tabName}`).classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+      if (tabName === 'sandbox' && typeof window.runCodeSandbox === 'function') window.runCodeSandbox();
+      if (tabName === 'physics' && typeof window.initPhysicsEngine === 'function') window.initPhysicsEngine();
+    };
+
+    window.switchServiceTab = function(tabName) {
+      document.querySelectorAll('#serviceSubSection .service-nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#serviceSubSection .service-tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(`btn-${tabName}`).classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    };
+
+    window.switchExpTab = function(tabName) {
+      document.querySelectorAll('#experienceSubSection .exp-nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#experienceSubSection .exp-tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(`btn-${tabName}`).classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    };
+
+    window.switchProjTab = function(tabName) {
+      document.querySelectorAll('#projectsSubSection .proj-nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#projectsSubSection .proj-tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById(`btn-proj-${tabName}`).classList.add('active');
+      document.getElementById(`tab-proj-${tabName}`).classList.add('active');
+    };
+
+    window.updateServicePreview = function() {
+      const title = document.getElementById('inputServTitle').value.trim() || "Custom Service Title";
+      const desc = document.getElementById('inputServDesc').value.trim() || "Your custom service description will appear here as you type.";
+      document.getElementById('previewServTitleDisplay').innerHTML = `<i class="fa-solid fa-screwdriver-wrench"></i> ${title}`;
+      document.getElementById('previewServDescDisplay').textContent = desc;
+    };
+
+    window.saveCustomService = function() {
+      const title = document.getElementById('inputServTitle').value.trim();
+      const desc = document.getElementById('inputServDesc').value.trim();
+      if (!title || !desc) {
+        alert("Please fill in both the service title and description!");
+        return;
+      }
+      const grid = document.getElementById('dynamicServiceGrid');
+      const newCard = document.createElement('div');
+      newCard.className = 'info-card';
+      newCard.style.cssText = 'background:#fff; border-top: 4px solid var(--primary-red);';
+      newCard.innerHTML = `
+        <h3><i class="fa-solid fa-screwdriver-wrench"></i> ${title}</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem;">${desc}</p>
+      `;
+      grid.prepend(newCard);
+      document.getElementById('inputServTitle').value = '';
+      document.getElementById('inputServDesc').value = '';
+      window.updateServicePreview();
+      window.switchServiceTab('servweb');
+    };
+
+    window.updateExpPreview = function() {
+      const year = document.getElementById('inputExpYear').value.trim() || "2024 - Present";
+      const title = document.getElementById('inputExpTitle').value.trim() || "Custom Milestone Title";
+      const desc = document.getElementById('inputExpDesc').value.trim() || "Your experience summary will show up here live.";
+      document.getElementById('previewExpYearDisplay').textContent = year;
+      document.getElementById('previewExpTitleDisplay').textContent = title;
+      document.getElementById('previewExpDescDisplay').textContent = desc;
+    };
+
+    window.saveCustomExperience = function() {
+      const year = document.getElementById('inputExpYear').value.trim() || "2024+";
+      const title = document.getElementById('inputExpTitle').value.trim();
+      const desc = document.getElementById('inputExpDesc').value.trim();
+      if (!title || !desc) {
+        alert("Please fill in both the milestone title and description!");
+        return;
+      }
+      const timeline = document.getElementById('dynamicExpTimeline');
+      const newItem = document.createElement('div');
+      newItem.className = 'timeline-item';
+      newItem.innerHTML = `
+        <span class="timeline-date">${year}</span>
+        <h3>${title}</h3>
+        <p style="color:var(--text-muted);">${desc}</p>
+      `;
+      timeline.prepend(newItem);
+      document.getElementById('inputExpYear').value = '';
+      document.getElementById('inputExpTitle').value = '';
+      document.getElementById('inputExpDesc').value = '';
+      window.updateExpPreview();
+      window.switchExpTab('exptimeline');
+    };
+
+    window.updateProjectPreview = function() {
+      const title = document.getElementById('inputProjTitle').value.trim() || "My New Project";
+      const cat = document.getElementById('inputProjCategory').value.trim() || "Web Application";
+      const desc = document.getElementById('inputProjDesc').value.trim() || "This is how your project description will look in the portfolio showcase grid.";
+      document.getElementById('previewTitleDisplay').textContent = title;
+      document.getElementById('previewCategoryDisplay').textContent = cat;
+      document.getElementById('previewDescDisplay').textContent = desc;
+    };
+
+    window.saveCustomProject = function() {
+      const title = document.getElementById('inputProjTitle').value.trim();
+      const cat = document.getElementById('inputProjCategory').value.trim();
+      const desc = document.getElementById('inputProjDesc').value.trim();
+      if (!title || !desc) {
+        alert("Please fill in at least the project title and description!");
+        return;
+      }
+      const grid = document.getElementById('dynamicProjectGrid');
+      const newCard = document.createElement('div');
+      newCard.className = 'project-card';
+      newCard.innerHTML = `
+        <div class="project-header" style="background: linear-gradient(135deg, #4338ca, #6366f1);">
+          <div>
+            <h3>${title}</h3>
+            <small style="color:#e0e7ff;">${cat || 'Custom Project'}</small>
+          </div>
+          <i class="fa-solid fa-laptop-code"></i>
+        </div>
+        <div class="project-body">
+          <p style="font-size:0.9rem; color:var(--text-muted);">${desc}</p>
+          <div class="mini-app-box" style="text-align:center;">
+            <span class="tech-badge" style="background:#e0e7ff; color:#3730a3;">Added by Naim</span>
+          </div>
+        </div>
+      `;
+      grid.prepend(newCard);
+      document.getElementById('inputProjTitle').value = '';
+      document.getElementById('inputProjCategory').value = '';
+      document.getElementById('inputProjDesc').value = '';
+      window.updateProjectPreview();
+      window.switchProjTab('all');
+    };
+
+    window.searchWeatherApp = function() {
+      const city = document.getElementById('weatherCityInput').value.trim();
+      const output = document.getElementById('weatherAppOutput');
+      if (!city) {
+        output.innerHTML = '<span style="color:#e50914; font-weight:700;">Please enter a city name!</span>';
+        return;
+      }
+      const mockTemps = { dhaka: '31°C - Partly Cloudy', london: '18°C - Light Rain', tokyo: '22°C - Sunny', newyork: '20°C - Clear' };
+      const key = city.toLowerCase();
+      const result = mockTemps[key] || `${Math.floor(Math.random() * 15) + 18}°C - Scattered Clouds`;
+      output.innerHTML = `<strong>${city.toUpperCase()} Weather:</strong> ${result}`;
+    };
+
+    window.renderStudioTitle = function() {
+      const text = document.getElementById('titleStudioText').value.trim() || 'CREATIVE FRONTEND DEVELOPER';
+      const style = document.getElementById('titleStudioStyle').value;
+      const display = document.getElementById('studioTitleDisplay');
+      display.textContent = text;
+      
+      if (style === 'red-glow') {
+        display.style.cssText = 'color:#ffffff; font-size:1.5rem; font-weight:800; text-shadow: 0 0 12px rgba(229, 9, 20, 0.9);';
+      } else if (style === 'gradient') {
+        display.style.cssText = 'background: linear-gradient(90deg, #f43f5e, #8b5cf6, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size:1.5rem; font-weight:800;';
+      } else if (style === 'cyber') {
+        display.style.cssText = 'color:#00ffcc; font-size:1.5rem; font-weight:800; font-family:monospace; letter-spacing:2px; text-shadow: 0 0 8px #00ffcc;';
+      }
+    };
+
+    window.runCodeSandbox = function() {
+      const codeInput = document.getElementById('sandboxCode');
+      const iframe = document.getElementById('sandboxOutput');
+      if (codeInput && iframe) iframe.srcdoc = codeInput.value;
+    };
+
+    let physicsAnimFrame = null;
+    window.initPhysicsEngine = function() {
+      const canvas = document.getElementById('physicsCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let angle = Math.PI / 3;
+      let angleVel = 0;
+      let angleAcc = 0;
+      const origin = { x: canvas.width / 2, y: 20 };
+      const length = 160;
+      const gravity = 0.4;
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        angleAcc = (-1 * gravity / length) * Math.sin(angle);
+        angleVel += angleAcc;
+        angle += angleVel;
+        angleVel *= 0.99;
+        const x = origin.x + length * Math.sin(angle);
+        const y = origin.y + length * Math.cos(angle);
+        ctx.beginPath();
+        ctx.moveTo(origin.x, origin.y);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = '#e50914';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.strokeStyle = '#e50914';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        physicsAnimFrame = requestAnimationFrame(animate);
+      }
+      if (physicsAnimFrame) cancelAnimationFrame(physicsAnimFrame);
+      animate();
+    };
+
+    const quizData = [
+      {
+        q: "What is the primary role of a Frontend Developer?",
+        options: ["Database Management", "Building User Interfaces", "Server Configuration", "Hardware Assembly"],
+        ans: 1
+      }
+    ];
+
+    function loadQuiz() {
+      const q = quizData[0];
+      const qElem = document.getElementById('quizQuestion');
+      const optsContainer = document.getElementById('quizOptions');
+      if (!qElem || !optsContainer) return;
+      qElem.textContent = q.q;
+      optsContainer.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-btn';
+        btn.textContent = `${idx + 1}. ${opt}`;
+        btn.onclick = () => {
+          const score = document.getElementById('quizScore');
+          if (score) score.textContent = (idx === q.ans) ? "🎉 Correct Answer!" : "❌ Incorrect. Try again!";
+        };
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    window.calcQuickGpa = function() {
+      const val = parseFloat(document.getElementById('quickGpaMarks').value);
+      const res = document.getElementById('quickGpaResult');
+      if (isNaN(val)) { res.textContent = "Please enter valid numerical marks!"; return; }
+      res.textContent = val >= 80 ? "Grade: A+ (GPA 5.00)" : val >= 70 ? "Grade: A (GPA 4.00)" : val >= 60 ? "Grade: A- (GPA 3.50)" : "Grade: Passed";
+    };
+
+    window.searchPortalRoll = function() {
+      const roll = document.getElementById('eduRollInput').value.trim();
+      const res = document.getElementById('portalResult');
+      if (!roll) { res.textContent = "Please enter roll number!"; return; }
+      res.textContent = `Student Roll #${roll}: GPA 5.00 (Passed)`;
+    };
+
+    window.calcProjCGPA = function() {
+      const marks = parseFloat(document.getElementById('cgpaMarks').value);
+      const res = document.getElementById('projCgpaOutput');
+      if (isNaN(marks)) { res.textContent = "Please enter marks percentage."; return; }
+      let gpa = marks >= 80 ? "4.00 (A+)" : marks >= 70 ? "3.50 (A)" : "3.00 (B)";
+      res.textContent = `Result CGPA: ${gpa}`;
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadQuiz();
+      const cliInput = document.getElementById('cliInput');
+      if (cliInput) {
+        cliInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            const input = this.value.trim().toLowerCase();
+            const log = document.getElementById('terminalLog');
+            this.value = '';
+            if (!log) return;
+            let response = '';
+            if (input === 'help') {
+              response = 'Available commands: <b>about</b>, <b>skills</b>, <b>clear</b>, <b>contact</b>';
+            } else if (input === 'about') {
+              response = 'Naim - Frontend Developer focused on HTML, CSS, JavaScript, and responsive design.';
+            } else if (input === 'skills') {
+              response = 'HTML5, CSS3, JavaScript (ES6+), DOM Manipulation, Canvas 2D API.';
+            } else if (input === 'contact') {
+              response = 'Reach out via the "CONTACT WITH ME" button on the top navigation bar.';
+            } else if (input === 'clear') {
+              log.innerHTML = '';
+              return;
+            } else {
+              response = `Command not recognized: '${input}'. Type <b>help</b> for command list.`;
+            }
+            log.innerHTML += `<div><span style="color:#e50914">naim@portfolio:~$</span> ${input}</div>`;
+            log.innerHTML += `<div>${response}</div><br>`;
+            log.scrollTop = log.scrollHeight;
+          }
+        });
+      }
+    });
+    
+  </script>
+  
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naim - Portfolio Sections</title>
+    <!-- Tailwind CSS for modern responsive utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons for SVG icon support -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS for interactive location map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        /* FAQ Accordion Transitions */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, padding 0.3s ease;
+            opacity: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* Expands smoothly */
+            opacity: 1;
+            transition: max-height 0.4s cubic-bezier(0.5, 0, 0.1, 1), opacity 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Custom Leaflet Map styling */
+        #map {
+            width: 100%;
+            height: 380px;
+            z-index: 1;
+            border-radius: 0.75rem;
+        }
+
+        /* Custom Red Top Border Line for Footer */
+        .footer-top-accent {
+            height: 4px;
+            background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+        }
+
+        /* Hover animations for footer social icons */
+        .social-btn {
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- ==========================================
+         1. FREQUENTLY ASKED QUESTIONS (FAQ) SECTION
+         ========================================== -->
+    <section class="py-16 md:py-24 bg-white" id="faq">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-slate-900 tracking-tight mb-10 md:mb-12">
+                Frequently Asked Questions (FAQ)
+            </h2>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item border-b border-slate-200 pb-2">
+                    <button class="faq-toggle w-full text-left py-4 flex justify-between items-center text-lg font-semibold text-slate-800 hover:text-red-600 focus:outline-none transition-colors">
+                        <span>When did Naim start coding?</span>
+                        <span class="faq-icon text-slate-400 text-xl font-bold ml-4"><i class="fa-solid font-light fa-plus"></i></span>
+                    </button>
+                    <div class="faq-answer text-slate-600 text-base leading-relaxed px-1">
+                        <p class="pb-4">
+                            Naim started coding in 2021, beginning with web fundamentals like HTML, CSS, and JavaScript, before expanding into full-stack modern web application development.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item border-b border-slate-200 pb-2">
+                    <button class="faq-toggle w-full text-left py-4 flex justify-between items-center text-lg font-semibold text-slate-800 hover:text-red-600 focus:outline-none transition-colors">
+                        <span>What technologies do you specialize in?</span>
+                        <span class="faq-icon text-slate-400 text-xl font-bold ml-4"><i class="fa-solid font-light fa-plus"></i></span>
+                    </button>
+                    <div class="faq-answer text-slate-600 text-base leading-relaxed px-1">
+                        <p class="pb-4">
+                            Specializing in JavaScript/TypeScript technologies including React, Next.js, Node.js, Express, Tailwind CSS, and database systems like MongoDB and PostgreSQL.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item border-b border-slate-200 pb-2">
+                    <button class="faq-toggle w-full text-left py-4 flex justify-between items-center text-lg font-semibold text-slate-800 hover:text-red-600 focus:outline-none transition-colors">
+                        <span>Are you available for freelance projects or hire?</span>
+                        <span class="faq-icon text-slate-400 text-xl font-bold ml-4"><i class="fa-solid font-light fa-plus"></i></span>
+                    </button>
+                    <div class="faq-answer text-slate-600 text-base leading-relaxed px-1">
+                        <p class="pb-4">
+                            Yes! Available for both freelance web development projects and full-time remote developer opportunities. Feel free to reach out via email or phone below.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         2. MY LOCATION SECTION
+         ========================================== -->
+    <section class="py-14 bg-slate-50 text-center" id="location">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+                My Location
+            </h2>
+            <p class="text-slate-600 text-base sm:text-lg mb-8 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-location-dot text-red-600"></i>
+                Dinajpur, Rangpur Division, Bangladesh
+            </p>
+
+            <!-- Map Wrapper -->
+            <div class="relative shadow-lg border border-slate-200 rounded-2xl overflow-hidden bg-slate-200">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         3. FOOTER SECTION
+         ========================================== -->
+    <footer class="bg-[#0b1320] text-slate-400 text-sm relative">
+        <!-- Red top border bar -->
+        <div class="footer-top-accent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+                
+                <!-- Column 1: Contact Info -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-white tracking-wide">
+                        Contact Me <span class="text-red-600 font-extrabold">.</span>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Have a project in mind or want to work together? Feel free to reach out via email or any social media channel below.
+                    </p>
+                    <div class="pt-2 space-y-2">
+                        <p class="flex items-center gap-2 text-slate-300 font-medium hover:text-white transition-colors">
+                            <i class="fa-regular fa-envelope text-red-500 w-5"></i>
+                            <a href="mailto:contact@naimdeveloper.com">contact@naimdeveloper.com</a>
+                        </p>
+                        <p class="flex items-center gap-2 text-slate-300 font-medium hover:text-white transition-colors">
+                            <i class="fa-solid fa-phone text-red-500 w-5"></i>
+                            <a href="tel:+8801700000000">+880 1700-000000</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Navigation -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-white tracking-wide">
+                        Quick Navigation
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#faq" class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
+                                <i class="fa-solid fa-circle-question text-red-500 group-hover:scale-110 transition-transform"></i>
+                                <span>FAQ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
+                                <i class="fa-solid fa-user-gear text-red-500 group-hover:scale-110 transition-transform"></i>
+                                <span>About Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#location" class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
+                                <i class="fa-solid fa-map-location-dot text-red-500 group-hover:scale-110 transition-transform"></i>
+                                <span>Location</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#services" class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
+                                <i class="fa-solid fa-screwdriver-wrench text-red-500 group-hover:scale-110 transition-transform"></i>
+                                <span>Services</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Follow & Connect -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-white tracking-wide">
+                        Follow & Connect
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Stay connected with me on social platforms:
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <!-- Facebook -->
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn w-10 h-10 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn w-10 h-10 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn w-10 h-10 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn w-10 h-10 rounded-full bg-slate-800 hover:bg-red-600 text-white flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="border-t border-slate-800/80 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <p>© 2026 NAIM. All rights reserved.</p>
+                <p>Designed with clean code & responsive design.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // ===================================
+            // 1. FAQ Accordion Toggle Script
+            // ===================================
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const toggleBtn = item.querySelector('.faq-toggle');
+                
+                toggleBtn.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all other open FAQ items
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+
+                    // Toggle clicked FAQ item
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Open the first FAQ item by default
+            if (faqItems.length > 0) {
+                faqItems[0].classList.add('active');
+            }
+
+            // ===================================
+            // 2. Interactive Map (Dinajpur, Bangladesh)
+            // ===================================
+            // Dinajpur coordinates: 25.6279, 88.6332
+            const dinajpurLat = 25.6279;
+            const dinajpurLng = 88.6332;
+
+            const map = L.map('map', {
+                scrollWheelZoom: false // disable zoom on scroll to prevent user scroll traps
+            }).setView([dinajpurLat, dinajpurLng], 12);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Custom Marker Icon
+            const customIcon = L.divIcon({
+                className: 'custom-map-pin',
+                html: `<div style="background-color: #ef4444; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 3px solid white;">
+                        <i class="fa-solid fa-location-dot text-lg"></i>
+                       </div>`,
+                iconSize: [36, 36],
+                iconAnchor: [18, 36]
+            });
+
+            // Add Marker with popup
+            const marker = L.marker([dinajpurLat, dinajpurLng], { icon: customIcon }).addTo(map);
+            marker.bindPopup("<b>Naim's Location</b><br>Dinajpur, Rangpur Division, Bangladesh").openPopup();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif, Arial;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+.contact-form {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.contact-me {
+    font-size: 36px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+.contact-me span {
+    color: #ff5722; /* "Me" লেখার কমলা রঙ */
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* ইনপুট ফিল্ডগুলোর মাঝের গ্যাপ */
+}
+
+.contact-form form input[type="text"],
+.contact-form form input[type="email"],
+.contact-form form input[type="tel"],
+.contact-form form textarea {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 15px;
+    color: #333333;
+    background-color: #f2f2f2; /* ইনপুট ফিল্ডের হালকা ধূসর ব্যাকগ্রাউন্ড */
+    border: 1.5px solid #d3d3d3;
+    border-radius: 8px; /* কোণা গোল করার জন্য */
+    outline: none;
+}
+
+.contact-form form textarea {
+    resize: none;
+    height: 140px;
+}
+
+/* বাটনের স্টাইল */
+.btn {
+    padding: 12px 28px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: center; /* বাটন মাঝে রাখার জন্য */
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
